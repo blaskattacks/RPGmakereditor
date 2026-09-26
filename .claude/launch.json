@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "savedelver",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8921"],
+      "port": 8921
+    }
+  ]
+}

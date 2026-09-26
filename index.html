@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaveDelver — a game-aware RPG Maker save editor</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="masthead">
+      <h1>Save<span class="accent">Delver</span></h1>
+      <span class="sub">a game-aware RPG Maker save editor</span>
+      <span class="spacer"></span>
+      <span class="crumbs" id="crumbs"></span>
+    </header>
+
+    <!-- VIEW: game picker -->
+    <section class="view" id="view-picker">
+      <div class="banner" style="margin-bottom:18px">
+        <span class="i">▲</span>
+        <span><b>Back up your save first.</b> This tool never uploads anything — everything happens in your browser — but always keep a copy of the original <code>.rpgsave</code> before overwriting it.</span>
+      </div>
+      <!-- filled when a previous session is recoverable from this browser's storage -->
+      <div id="resume-slot"></div>
+
+      <h2 style="margin-bottom:14px">Choose a game</h2>
+      <div class="cards" id="game-cards"></div>
+    </section>
+
+    <!-- VIEW: file intake -->
+    <section class="view" id="view-intake" hidden>
+      <div class="intake-head">
+        <button class="btn ghost sm" id="back-to-picker">&larr; games</button>
+        <h2 id="intake-title">Fear &amp; Hunger</h2>
+      </div>
+      <p class="sub" id="intake-sub"></p>
+
+      <!-- filled per profile: skeleton/generic notice + any game-specific caveat -->
+      <div id="profile-notes"></div>
+
+      <div class="folderpick">
+        <button class="btn primary" id="pick-folder-btn">Select your <code>www\data</code> folder</button>
+        <input type="file" id="folder-input" webkitdirectory directory multiple hidden>
+        <span class="toolnote">Fastest path — grabs every data file at once. Or drop files individually below.</span>
+      </div>
+
+      <div class="checklist" id="checklist"></div>
+
+      <div class="warns" id="intake-warns"></div>
+      <div class="intake-actions">
+        <button class="btn primary" id="open-editor-btn" disabled>Open editor</button>
+        <span class="toolnote" id="intake-progress"></span>
+      </div>
+    </section>
+
+    <!-- VIEW: editor -->
+    <section class="view" id="view-editor" hidden>
+      <!-- lives outside #content, which is cleared on every view switch -->
+      <div id="editor-note"></div>
+      <div class="editor">
+        <aside class="sidebar">
+          <!-- the only way back to the picker once the editor is open -->
+          <button class="btn ghost sm backbtn" id="editor-back">&larr; games</button>
+          <div class="navlist" id="nav"></div>
+          <div class="char-list" id="char-list" hidden></div>
+        </aside>
+        <div class="content" id="content"></div>
+      </div>
+      <div class="actionbar">
+        <span class="fname" id="save-fname"></span>
+        <span class="pill" id="dirty-pill" hidden>unsaved edits</span>
+        <span class="spacer"></span>
+        <button class="btn ghost" id="reload-btn">Discard &amp; reload</button>
+        <!-- label is rewritten per save from the detected codec's extension -->
+        <button class="btn primary" id="download-btn">Download save</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- vendored engine compressors (exactly what the games ship: MV=lz-string, MZ=pako) -->
+  <script src="js/vendor/lz-string.js"></script>
+  <script src="js/vendor/pako.min.js"></script>
+  <!-- core -->
+  <script src="js/util.js"></script>
+  <script src="js/cache.js"></script>
+  <script src="js/usage.js"></script>
+  <script src="js/jsonex.js"></script>
+  <script src="js/rpgsave.js"></script>
+  <script src="js/mvdata.js"></script>
+  <script src="js/widgets/wheel.js"></script>
+  <!-- shared profile pieces must load before the registry's skeleton() helper is used -->
+  <script src="js/games/_shared.js"></script>
+  <script src="js/gameRegistry.js"></script>
+  <!-- game profiles — tested against a real save -->
+  <script src="js/games/fear-and-hunger.js"></script>
+  <script src="js/games/fear-and-hunger-2.js"></script>
+  <script src="js/games/look-outside.js"></script>
+  <!-- game profiles — skeletons, not yet round-tripped against a real save -->
+  <script src="js/games/omori.js"></script>
+  <script src="js/games/coffin-andy-leyley.js"></script>
+  <script src="js/games/witchs-house-mv.js"></script>
+  <script src="js/games/ib.js"></script>
+  <script src="js/games/little-one.js"></script>
+  <!-- catch-alls for any game without a profile (last, so they sort to the end) -->
+  <script src="js/games/_generic.js"></script>
+  <!-- extracted skill-tree data (coordinates + ids only, no game art) -->
+  <script src="js/games/hexen-fh1.js"></script>
+  <script src="js/games/hexen-fh2.js"></script>
+  <!-- editors -->
+  <script src="js/editors/characters.js"></script>
+  <script src="js/editors/hexen.js"></script>
+  <script src="js/editors/party.js"></script>
+  <script src="js/editors/systems.js"></script>
+  <script src="js/editors/mods.js"></script>
+  <script src="js/editors/variables.js"></script>
+  <script src="js/editors/switches.js"></script>
+  <!-- app controller (last) -->
+  <script src="js/app.js"></script>
+</body>
+</html>

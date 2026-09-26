@@ -1,0 +1,43 @@
+MIT License
+
+Copyright (c) 2026 blaskattacks
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+This licence covers SaveDelver's own source only.
+
+SaveDelver ships NO game files: no art, no audio, no scripts, no data files from any game. It
+reads the copy of the game you already own, on your own machine, and nothing it reads is uploaded
+anywhere.
+
+`js/vendor/` contains two unmodified upstream libraries, under their own licences:
+  - lz-string   (c) 2013 pieroxy       — MIT
+  - pako        (c) 2014-2017 Vitaly Puzrin and Andrei Tuputcyn — MIT
+
+`js/games/usage-*.js` and `js/games/hexen-fh*.js` are indexes derived from the event data of games
+the author owns: switch and variable names, numeric ids, reference counts and node coordinates.
+They contain no game code, artwork or text. They exist so the editor can label things correctly,
+and are the same kind of reference material a community wiki publishes. If you are a rights holder
+and would like one removed, open an issue.
+
+The games themselves are the property of their respective developers — Fear & Hunger and
+Fear & Hunger 2: Termina by Miro Haverinen, Look Outside by Francis Coulombe. This project is
+unaffiliated with, and unendorsed by, any of them.

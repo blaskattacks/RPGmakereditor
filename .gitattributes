@@ -1,0 +1,15 @@
+# Normalise text in the repo, check out native. Keeps a Linux clone from seeing CRLF everywhere.
+* text=auto
+
+# These two are run by Windows, and Windows is fussy about it: cmd.exe can mis-parse a .bat with
+# LF endings, and PowerShell 5.1 wants CRLF alongside the BOM the script already carries (without
+# the BOM it reads the file as ANSI and every non-ASCII character becomes mojibake).
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# Vendored compressors: upstream files, kept byte-for-byte as the games ship them.
+js/vendor/* -text -diff linguist-vendored
+
+# Generated indexes. Diffing a 420KB machine-written line helps nobody.
+js/games/usage-*.js -diff linguist-generated
+js/games/hexen-fh*.js -diff linguist-generated

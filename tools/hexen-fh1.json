@@ -1,0 +1,428 @@
+[
+  {
+    "index": 1,
+    "x": 241,
+    "y": 107,
+    "plate": "lockpicking",
+    "skillId": 72,
+    "skill": "Lockpicking",
+    "purchasedSwitch": 1185,
+    "purchasedSwitchName": "SKILL_Lockpicking",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1182
+    ],
+    "branchNames": [
+      "Endless_soul"
+    ]
+  },
+  {
+    "index": 2,
+    "x": 291,
+    "y": 133,
+    "plate": "steal",
+    "skillId": 70,
+    "skill": "Steal",
+    "purchasedSwitch": 1187,
+    "purchasedSwitchName": "SKILL_steal",
+    "prereqSwitches": [
+      1185
+    ],
+    "branchSwitches": [
+      1182
+    ],
+    "branchNames": [
+      "Endless_soul"
+    ]
+  },
+  {
+    "index": 3,
+    "x": 369,
+    "y": 101,
+    "plate": "necromancy",
+    "skillId": 21,
+    "skill": "Necromancy",
+    "purchasedSwitch": 1199,
+    "purchasedSwitchName": "SKILL_necromancy",
+    "prereqSwitches": [
+      1198
+    ],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 4,
+    "x": 417,
+    "y": 101,
+    "plate": "blood_golem",
+    "skillId": 51,
+    "skill": "Blood golem",
+    "purchasedSwitch": 1198,
+    "purchasedSwitchName": "SKILL_blood_golem",
+    "prereqSwitches": [],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 11,
+    "x": 233,
+    "y": 161,
+    "plate": "backstab",
+    "skillId": 146,
+    "skill": "En garde",
+    "purchasedSwitch": 1186,
+    "purchasedSwitchName": "SKILL_backstab",
+    "prereqSwitches": [
+      1185
+    ],
+    "branchSwitches": [
+      1182
+    ],
+    "branchNames": [
+      "Endless_soul"
+    ]
+  },
+  {
+    "index": 12,
+    "x": 283,
+    "y": 186,
+    "plate": "sprint",
+    "skillId": 71,
+    "skill": "Dash",
+    "purchasedSwitch": 1188,
+    "purchasedSwitchName": "SKILL_sprint",
+    "prereqSwitches": [
+      1187,
+      1186
+    ],
+    "branchSwitches": [
+      1182
+    ],
+    "branchNames": [
+      "Endless_soul"
+    ]
+  },
+  {
+    "index": 13,
+    "x": 409,
+    "y": 156,
+    "plate": "hurting",
+    "skillId": 12,
+    "skill": "Hurting",
+    "purchasedSwitch": 1197,
+    "purchasedSwitchName": "SKILL_hurting",
+    "prereqSwitches": [
+      1198,
+      1200
+    ],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 14,
+    "x": 469,
+    "y": 138,
+    "plate": "crows",
+    "skillId": 199,
+    "skill": "Pyromancy trick",
+    "purchasedSwitch": 1200,
+    "purchasedSwitchName": "SKILL_pyromancy_trick",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1182
+    ],
+    "branchNames": [
+      "Endless_soul"
+    ]
+  },
+  {
+    "index": 21,
+    "x": 139,
+    "y": 209,
+    "plate": "defence_stance",
+    "skillId": 68,
+    "skill": "Defence stance",
+    "purchasedSwitch": 1189,
+    "purchasedSwitchName": "SKILL_defencestance",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1181
+    ],
+    "branchNames": [
+      "Domination_soul"
+    ]
+  },
+  {
+    "index": 22,
+    "x": 194,
+    "y": 210,
+    "plate": "counter",
+    "skillId": 67,
+    "skill": "Counter",
+    "purchasedSwitch": 1190,
+    "purchasedSwitchName": "SKILL_counter",
+    "prereqSwitches": [
+      1189
+    ],
+    "branchSwitches": [
+      1181
+    ],
+    "branchNames": [
+      "Domination_soul"
+    ]
+  },
+  {
+    "index": 23,
+    "x": 431,
+    "y": 227,
+    "plate": "black_orb",
+    "skillId": 150,
+    "skill": "Black orb",
+    "purchasedSwitch": 1201,
+    "purchasedSwitchName": "SKILL_blackorb",
+    "prereqSwitches": [
+      1197
+    ],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 24,
+    "x": 546,
+    "y": 222,
+    "plate": "demon_seed",
+    "skillId": 55,
+    "skill": "Pheromones",
+    "purchasedSwitch": 1202,
+    "purchasedSwitchName": "SKILL_pheromones",
+    "prereqSwitches": [],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 25,
+    "x": 216,
+    "y": 260,
+    "plate": "leg_sweep",
+    "skillId": 136,
+    "skill": "Leg sweep",
+    "purchasedSwitch": 1191,
+    "purchasedSwitchName": "SKILL_legsweep",
+    "prereqSwitches": [
+      1189,
+      1211
+    ],
+    "branchSwitches": [
+      1181
+    ],
+    "branchNames": [
+      "Domination_soul"
+    ]
+  },
+  {
+    "index": 31,
+    "x": 163,
+    "y": 263,
+    "plate": "fast_stance",
+    "skillId": 66,
+    "skill": "Fast attack",
+    "purchasedSwitch": 1211,
+    "purchasedSwitchName": "SKILL_fast_stance",
+    "prereqSwitches": [
+      1189
+    ],
+    "branchSwitches": [
+      1181
+    ],
+    "branchNames": [
+      "Domination_soul"
+    ]
+  },
+  {
+    "index": 32,
+    "x": 527,
+    "y": 273,
+    "plate": "healing",
+    "skillId": 151,
+    "skill": "Healing whispers",
+    "purchasedSwitch": 1204,
+    "purchasedSwitchName": "SKILL_healing",
+    "prereqSwitches": [
+      1202,
+      1203
+    ],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 33,
+    "x": 586,
+    "y": 264,
+    "plate": "marriage",
+    "skillId": 238,
+    "skill": "Loving whispers",
+    "purchasedSwitch": 1203,
+    "purchasedSwitchName": "SKILL_loving_whispers",
+    "prereqSwitches": [],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 41,
+    "x": 142,
+    "y": 333,
+    "plate": "devour",
+    "skillId": 78,
+    "skill": "Devour",
+    "purchasedSwitch": 1192,
+    "purchasedSwitchName": "SKILL_devour",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1183
+    ],
+    "branchNames": [
+      "tormented_soul"
+    ]
+  },
+  {
+    "index": 42,
+    "x": 195,
+    "y": 342,
+    "plate": "marksmanship",
+    "skillId": 79,
+    "skill": "Marksmanship",
+    "purchasedSwitch": 1194,
+    "purchasedSwitchName": "SKILL_marksmanship",
+    "prereqSwitches": [
+      1192,
+      1193
+    ],
+    "branchSwitches": [
+      1183
+    ],
+    "branchNames": [
+      "tormented_soul"
+    ]
+  },
+  {
+    "index": 51,
+    "x": 164,
+    "y": 383,
+    "plate": "bloodlust",
+    "skillId": 283,
+    "skill": "War cry",
+    "purchasedSwitch": 1193,
+    "purchasedSwitchName": "SKILL_war_cry",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1183
+    ],
+    "branchNames": [
+      "tormented_soul"
+    ]
+  },
+  {
+    "index": 52,
+    "x": 435,
+    "y": 379,
+    "plate": "locust",
+    "skillId": 48,
+    "skill": "Locust swarm",
+    "purchasedSwitch": 1208,
+    "purchasedSwitchName": "SKILL_locustswarm",
+    "prereqSwitches": [
+      1206,
+      1207
+    ],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 53,
+    "x": 546,
+    "y": 340,
+    "plate": "portal",
+    "skillId": 148,
+    "skill": "Blood portal",
+    "purchasedSwitch": 1205,
+    "purchasedSwitchName": "SKILL_portal",
+    "prereqSwitches": [],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 61,
+    "x": 225,
+    "y": 436,
+    "plate": "counter_magic",
+    "skillId": 115,
+    "skill": "Counter-magic",
+    "purchasedSwitch": 1195,
+    "purchasedSwitchName": "SKILL_dispel",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1184
+    ],
+    "branchNames": [
+      "Enlightened_soul"
+    ]
+  },
+  {
+    "index": 62,
+    "x": 270,
+    "y": 460,
+    "plate": "greater_bloodmagic",
+    "skillId": 74,
+    "skill": "Greater blood magic",
+    "purchasedSwitch": 1196,
+    "purchasedSwitchName": "SKILL_greater",
+    "prereqSwitches": [],
+    "branchSwitches": [
+      1184
+    ],
+    "branchNames": [
+      "Enlightened_soul"
+    ]
+  },
+  {
+    "index": 63,
+    "x": 367,
+    "y": 462,
+    "plate": "insect_armor",
+    "skillId": 149,
+    "skill": "Flock of crows",
+    "purchasedSwitch": 1209,
+    "purchasedSwitchName": "SKILL_flock_of_crows",
+    "prereqSwitches": [
+      1207
+    ],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 64,
+    "x": 419,
+    "y": 446,
+    "plate": "mastery",
+    "skillId": 56,
+    "skill": "Mastery over insects",
+    "purchasedSwitch": 1207,
+    "purchasedSwitchName": "SKILL_mastery",
+    "prereqSwitches": [],
+    "branchSwitches": [],
+    "branchNames": []
+  },
+  {
+    "index": 65,
+    "x": 507,
+    "y": 413,
+    "plate": "needle_worm",
+    "skillId": 122,
+    "skill": "Needle worm",
+    "purchasedSwitch": 1206,
+    "purchasedSwitchName": "SKILL_needleworm",
+    "prereqSwitches": [],
+    "branchSwitches": [],
+    "branchNames": []
+  }
+]

@@ -1,0 +1,29 @@
+# Save files. These are personal, and the whole point of this tool is that they never leave your
+# machine -- so make it hard to commit one by accident, including from a test run.
+*.rpgsave
+*.rmmzsave
+save/
+saves/
+
+# Game data. Never redistribute a game's own files: point the editor at your own install instead.
+www/
+data/System.json
+*.rpgmvp
+*.rpgmvo
+*.rpgmvm
+
+# Mod archives and whatever the swapper backs up.
+*.rar
+*.zip
+*.7z
+_SaveDelver-Backups/
+
+# Local editor / tooling state.
+.claude/settings.local.json
+node_modules/
+*.log
+
+# OS cruft.
+Thumbs.db
+desktop.ini
+.DS_Store

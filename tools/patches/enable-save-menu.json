@@ -1,0 +1,27 @@
+{
+  "name": "enable-save-menu",
+  "title": "Put Save back in the in-game menu",
+  "why": [
+    "These games hide the Save command rather than disabling saving. System.json's menuCommands",
+    "array is [item, skill, equip, status, formation, save], and every one of Fear & Hunger,",
+    "Termina and Look Outside ships with the last entry set to false -- so Window_MenuCommand",
+    "never adds the command, and you can only save where the game gives you a save point.",
+    "",
+    "Neither Fear & Hunger nor Termina ever issues a 'Change Save Access: disable', so saving is",
+    "already enabled at runtime; it is only the menu entry that is missing. Flipping this one",
+    "boolean in YOUR OWN copy of System.json puts it back.",
+    "",
+    "Look Outside is different -- it actively manages save rights through a manageSaveRights common",
+    "event with 122 access changes -- so this patch is not offered for it."
+  ],
+  "appliesTo": ["fear-and-hunger", "fear-and-hunger-2"],
+  "edits": [
+    {
+      "file": "{data}/System.json",
+      "path": "menuCommands.5",
+      "expect": false,
+      "value": true,
+      "describe": "menuCommands[5] (Save) : false -> true"
+    }
+  ]
+}
