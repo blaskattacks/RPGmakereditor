@@ -1,5 +1,9 @@
 # SaveDelver — a game-aware RPG Maker save editor
 
+[![tests](https://github.com/blaskattacks/RPGmakereditor/actions/workflows/tests.yml/badge.svg)](https://github.com/blaskattacks/RPGmakereditor/actions/workflows/tests.yml)
+[![live](https://img.shields.io/badge/try%20it-live-6a5312)](https://blaskattacks.github.io/RPGmakereditor/)
+[![licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
+
 A save editor in the spirit of [saveeditonline.com](https://www.saveeditonline.com/), but it
 actually *understands* the game. Instead of showing raw ID numbers, it maps everything to real
 names using the game's own data files, so you can edit a character's **skills, abilities,
@@ -199,9 +203,8 @@ browser storage APIs are happier there too. The initial load is ~290 KB; the per
 ## Running the tests
 
 ```bash
-node tools/tests/test-profiles.js       # one suite
-for f in tools/tests/test-*.js; do node "$f"; done   # all of them
-node tools/tests/scan-escapes.js        # lint for the lost-backslash bug
+node tools/tests/run-all.js             # everything, with a summary
+node tools/tests/test-profiles.js       # just one suite
 ```
 
 Many suites check the editor against the **real data files a game ships**, which is the point of
@@ -214,8 +217,13 @@ SAVEDELVER_FH1="D:/Games/Fear & Hunger/www" node tools/tests/test-fh-edits.js
 SAVEDELVER_STEAM="D:/SteamLibrary/steamapps/common" node tools/tests/test-systems.js
 ```
 
-With all three games installed the suite is **375 checks across fifteen files**; with none, 73 of
-them still run.
+With all three games installed the suite is **376 checks across fifteen files**; with none, 74 of
+them still run — which is what CI does on every push.
+
+`run-all.js` exits non-zero only on a real failure, never on a skip, and also runs
+`scan-escapes.js` — a lint for one specific bug that bit this project repeatedly: a string literal
+that lost a backslash, turning `'www\\data'` into `'www\data'`, which JavaScript quietly reads as
+`"wwwdata"` (and `'www\\files'` into a literal form feed).
 
 ---
 
@@ -284,6 +292,7 @@ js/games/usage-*.js    switch/variable usage indexes (lazy-loaded, not in index.
 js/editors/*.js        characters · hexen · party · systems · variables · switches
 tools/modswap.ps1      reversible mod installer (backup -> swap -> restore)
 js/app.js              controller: picker → intake → editor → download
+tools/tests/run-all.js run every suite (skips games you do not own)
 tools/                 offline extractors (decrypt .rpgmvp, rebuild the hexen tree)
 ```
 

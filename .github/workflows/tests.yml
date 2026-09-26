@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No dependencies to install — the editor is plain static files and the suites are stdlib
+      # node. Suites that need one of the games installed skip themselves here, so what CI proves
+      # is the engine-independent half: codecs, profile wiring, hexen geometry, roster ordering,
+      # the caching layer, and whether this would survive being hosted.
+      - name: Run the suite
+        run: node tools/tests/run-all.js
+
+      # Linux is case-sensitive and Windows is not, so a mis-capitalised <script src> works on the
+      # author's machine and 404s here. This is the job that catches it before Pages does.
+      - name: Hosting readiness
+        run: node tools/tests/test-hosting.js
