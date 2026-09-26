@@ -41,6 +41,16 @@ function realCase(rel) {
 const badCase = refs.filter(r => !realCase(r.replace(/[?#].*$/, '')));
 check('all script/link paths resolve case-sensitively', badCase.length === 0, badCase.join(', '));
 
+/* GitHub Pages runs Jekyll over the repo unless told not to, and Jekyll silently drops every file
+ * and folder whose name starts with an underscore. index.html loads js/games/_shared.js and
+ * _generic.js, so without this the hosted copy 404s on two core scripts and the picker comes up
+ * empty -- while the local copy works perfectly. Exactly the bug that only shows up after deploy. */
+const underscored = refs.filter(r => r.split('/').some(seg => seg.startsWith('_')));
+if (underscored.length) {
+  check(`.nojekyll exists (${underscored.length} referenced path(s) start with "_")`,
+    fs.existsSync(path.join(ROOT, '.nojekyll')), underscored.join(', '));
+}
+
 console.log('\n=== nothing shipped to the browser assumes a local filesystem ===');
 const shipped = [];
 (function collect(dir, rel) {
