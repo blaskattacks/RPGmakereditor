@@ -134,6 +134,8 @@
     var nodeLayer = svg('g', {});
     board.appendChild(nodeLayer);
     panel.appendChild(el('div', { class: 'hexwrap' }, board));
+    // Only shown at phone width, where the board keeps its size and pans instead of shrinking.
+    panel.appendChild(el('p', { class: 'toolnote narrowonly' }, 'The board is wider than your screen — drag it sideways to reach the rest of the tree.'));
 
     // ---------- writes ----------
     /* Grant: skill (or parameter) + purchase switch + learns_ variable.

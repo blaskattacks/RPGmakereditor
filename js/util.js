@@ -10,13 +10,37 @@ window.FHSE = window.FHSE || {};
     node.appendChild(document.createTextNode(String(children)));
   }
 
+  /* Make a non-button element behave like one for everybody, not just mouse users.
+   *
+   * A div with an onclick is invisible to the keyboard: it is not in the tab order and Enter does
+   * nothing, so a whole surface built from them cannot be operated at all without a pointer. That
+   * is what happened to the game picker and the character list. Anything clickable that cannot be
+   * a real <button> (because it contains block content, or is an SVG group) goes through here.
+   *
+   * Space is treated like Enter because that is what a native button does, and the keydown has to
+   * preventDefault or Space scrolls the page instead. */
+  function clickable(node, handler) {
+    if (!node.hasAttribute('role')) node.setAttribute('role', 'button');
+    if (!node.hasAttribute('tabindex')) node.setAttribute('tabindex', '0');
+    node.addEventListener('click', handler);
+    node.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      e.preventDefault();
+      handler.call(node, e);
+    });
+    return node;
+  }
+
   // el('div', {class:'x', onclick:fn, text:'hi'}, [childNodes])
+  // Use `onactivate` rather than `onclick` on anything that is not a real button: it wires the
+  // click AND the keyboard, and marks the element up as a button for assistive tech.
   function el(tag, attrs, children) {
     var n = document.createElement(tag);
     if (attrs) {
       for (var k in attrs) {
         var v = attrs[k];
         if (v == null || v === false) continue;
+        if (k === 'onactivate' && typeof v === 'function') { clickable(n, v); continue; }
         if (k === 'class') n.className = v;
         else if (k === 'text') n.textContent = v;
         else if (k === 'html') n.innerHTML = v;
@@ -75,7 +99,7 @@ window.FHSE = window.FHSE || {};
     };
   }
 
-  FHSE.dom = { el: el, append: append, clear: clear, download: download, readText: readText, readBinary: readBinary, debounce: debounce };
+  FHSE.dom = { el: el, append: append, clear: clear, clickable: clickable, download: download, readText: readText, readBinary: readBinary, debounce: debounce };
 
   /* A reusable searchable "add" control.
    * opts: { placeholder, items:[], filter(item,q)->bool, row(item)->Node, onPick(item) } */

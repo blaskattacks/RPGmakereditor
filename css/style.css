@@ -8,10 +8,22 @@
   --line-2:    #3a3434;
   --ink:       #e7e0da;
   --ink-dim:   #a49a92;
-  --ink-faint: #6f655f;
+  /* Was #6f655f, which measured 3.0-3.4:1 — under AA. It carries ids, hints, level labels and
+     every .empty message, which is the only text on screen when a list is empty, so the faintest
+     token was doing some of the most necessary reading. Now >=4.55:1 on every ground it sits on. */
+  --ink-faint: #8b827d;
   --accent:    #8a1c1c;
-  --accent-2:  #b5302a;
+  --accent-2:  #b5302a;   /* brand red: fills, strokes, borders — graphics, not body text */
+  /* The same red is too dark to be read AS TEXT (2.9:1). Anything word-shaped uses this instead. */
+  --accent-text: #cf6762;
   --accent-ink:#f3d9d3;
+  /* Focus ring. Drawn with outline-offset so it always lands on the page ground rather than on
+     the control — which is what keeps it visible on the primary button, whose own red would
+     otherwise swallow it (2.0:1 against --accent-2). On the dark grounds it reaches 5.6-6.3:1. */
+  --focus:     #d67975;
+  /* Form fields share the page background, so their border is the only thing marking them as a
+     control — that makes it a UI boundary needing 3:1, unlike the decorative panel rules. */
+  --field-line:#7a6e6a;
   --good:      #4e7d4e;
   --warn:      #b5892a;
   --bad:       #a83232;
@@ -29,7 +41,19 @@ body {
   font-size: 14px;
   line-height: 1.5;
 }
-a { color: var(--accent-2); }
+a { color: var(--accent-text); }
+
+/* One focus ring for everything, including the divs that act as buttons. :focus-visible so it
+   appears for keyboard and assistive tech without ringing every mouse click. The offset puts it
+   outside the control, on the page ground, where it has contrast to spare. */
+/* No border-radius here: it would override the focused element's OWN corners — a 12px card would
+   snap square the moment you tabbed to it. Modern browsers already curve the outline to match. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+/* Inside the hexen SVG an offset ring would float away from the node, so it draws on the shape. */
+.hexboard :focus-visible { outline-offset: 0; }
 h1, h2, h3 { font-weight: 650; letter-spacing: .2px; margin: 0; }
 button { font-family: inherit; }
 ::-webkit-scrollbar { width: 11px; height: 11px; }
@@ -69,10 +93,15 @@ button { font-family: inherit; }
 .btn.sm { padding: 4px 9px; font-size: 12px; }
 
 input[type=text], input[type=number], input[type=search], select {
-  background: var(--bg); color: var(--ink); border: 1px solid var(--line-2);
+  background: var(--bg); color: var(--ink); border: 1px solid var(--field-line);
   border-radius: 6px; padding: 6px 9px; font-size: 13px; font-family: inherit;
 }
-input:focus, select:focus { outline: none; border-color: var(--accent-2); }
+/* Scoped to the controls that actually HAVE a border to recolour. The old rule was a bare
+   `input:focus`, so it also stripped the focus ring off every checkbox — which is the entire
+   interface of the switches, states and systems editors — and replaced it with nothing, since a
+   native checkbox has no border for border-color to reach. The ring above now covers those. */
+input[type=text]:focus-visible, input[type=number]:focus-visible,
+input[type=search]:focus-visible, select:focus-visible { border-color: var(--accent-2); }
 input[type=number] { width: 92px; }
 label.fld { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--ink-dim); }
 label.fld input, label.fld select { color: var(--ink); }
@@ -97,14 +126,18 @@ label.fld input, label.fld select { color: var(--ink); }
 .intake-head h2 { font-size: 18px; }
 .folderpick { margin: 16px 0; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 .checklist { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-top: 8px; }
-.crow { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-top: 1px solid var(--line); }
+/* The whole row is the control that opens the file picker, so it reads as one. */
+.crow { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-top: 1px solid var(--line); cursor: pointer; }
+.crow:hover { background: var(--bg-2); }
+/* The ring is inset here: an offset one would be clipped by .checklist's overflow:hidden. */
+.crow:focus-visible { outline-offset: -3px; }
 .crow:first-child { border-top: none; }
 .crow .dot { width: 10px; height: 10px; border-radius: 50%; background: #3a3434; flex: none; }
 .crow.ok .dot { background: var(--good); box-shadow: 0 0 8px #4e7d4e88; }
 .crow.miss .dot { background: #4a3a3a; }
 .crow .meta { flex: 1; min-width: 0; }
 .crow .name { font-weight: 600; }
-.crow .name .req { color: var(--accent-2); font-size: 11px; margin-left: 6px; }
+.crow .name .req { color: var(--accent-text); font-size: 11px; margin-left: 6px; }
 .crow .hint { color: var(--ink-faint); font-size: 12px; }
 .crow .status { font-size: 12px; color: var(--ink-dim); font-family: var(--mono); white-space: nowrap; }
 .crow input[type=file] { display: none; }
@@ -123,7 +156,7 @@ label.fld input, label.fld select { color: var(--ink); }
   padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 13.5px; }
 .navbtn:hover { background: var(--bg-2); color: var(--ink); }
 .navbtn.active { background: var(--bg-3); border-color: var(--line-2); color: var(--ink); font-weight: 600; }
-.navbtn .k { font-size: 11px; color: var(--ink-faint); font-family: var(--mono); float: right; }
+.navbtn .k { font-size: 11px; color: var(--ink-faint); font-family: var(--mono); margin-left: auto; }
 
 .char-list { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; max-height: 60vh; overflow: auto; }
 .char-list .clbl { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--ink-faint); padding: 4px 4px 8px; }
@@ -137,9 +170,13 @@ label.fld input, label.fld select { color: var(--ink); }
 
 .content { min-width: 0; }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+/* flex, not float: a floated .side is taken out of flow, so a long heading runs underneath it
+   instead of stopping short. gap + margin-left:auto keeps them apart at any length. */
 .panel > h3 { font-size: 14px; text-transform: uppercase; letter-spacing: .7px; color: var(--ink-dim);
-  margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-.panel > h3 .side { float: right; text-transform: none; letter-spacing: 0; color: var(--ink-faint); font-size: 12px; }
+  margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: baseline; gap: 12px; }
+.panel > h3 .side { margin-left: auto; text-transform: none; letter-spacing: 0; color: var(--ink-faint);
+  font-size: 12px; flex: none; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 .grid.two { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
@@ -148,8 +185,10 @@ label.fld input, label.fld select { color: var(--ink); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { display: inline-flex; align-items: center; gap: 7px; background: var(--bg-3); border: 1px solid var(--line-2);
   border-radius: 20px; padding: 5px 6px 5px 12px; font-size: 12.5px; }
+/* A real <button> now, so the UA's own background, padding and font have to be cleared. */
 .chip .x { cursor: pointer; width: 17px; height: 17px; line-height: 15px; text-align: center; border-radius: 50%;
-  color: var(--ink-faint); border: 1px solid transparent; }
+  color: var(--ink-faint); border: 1px solid transparent; background: none; padding: 0;
+  font: inherit; font-size: 12px; flex: none; }
 .chip .x:hover { color: #fff; background: var(--accent); }
 .chip .id { color: var(--ink-faint); font-family: var(--mono); font-size: 11px; }
 .empty { color: var(--ink-faint); font-style: italic; font-size: 12.5px; }
@@ -167,7 +206,7 @@ label.fld input, label.fld select { color: var(--ink); }
 
 /* state groups */
 .stategrp { margin-bottom: 14px; }
-.stategrp .gname { font-size: 12px; color: var(--accent-2); font-weight: 650; margin-bottom: 8px; }
+.stategrp .gname { font-size: 12px; color: var(--accent-text); font-weight: 650; margin-bottom: 8px; }
 summary.gname { cursor: pointer; user-select: none; }
 details.stategrp[open] > summary.gname { margin-bottom: 10px; }
 .togs { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 14px; }
@@ -211,9 +250,27 @@ details.stategrp[open] > summary.gname { margin-bottom: 10px; }
   box-shadow: 0 10px 30px #000b; z-index: 100; font-size: 13px; }
 .toast.err { border-color: var(--bad); color: #f0c9c9; }
 
+.narrowonly { display: none; }
+
 @media (max-width: 760px) {
   .editor { grid-template-columns: 1fr; }
   .sidebar { position: static; }
+
+  /* The hexen board is 816 units wide. Letting the SVG scale down to phone width renders its
+     11-unit labels at about 4px and shrinks every tap target by the same factor — Termina's 104
+     nodes become unhittable. So below this width it holds a legible size and pans sideways
+     instead: the one element in the app allowed to scroll horizontally, inside its own box. */
+  .hexwrap { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .hexboard { min-width: 680px; }
+  .narrowonly { display: block; }
+}
+
+/* Respect a system-level request for less movement. The card lift is the only real motion here;
+   colour transitions are left alone, since a cross-fade is not what this setting is about. */
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: border-color .12s, box-shadow .12s; }
+  .card:hover { transform: none; }
+  * { scroll-behavior: auto !important; }
 }
 
 /* ---------- profile badges & notes ---------- */
@@ -343,8 +400,8 @@ details.stategrp[open] > summary.gname { margin-bottom: 10px; }
   background: none; border: none; color: var(--ink-faint); cursor: pointer;
   font-size: 13px; padding: 0 2px 0 8px; line-height: 1;
 }
-.usagebtn:hover { color: var(--accent-2); }
-.usagebtn.on { color: var(--accent-2); }
+.usagebtn:hover { color: var(--accent-text); }
+.usagebtn.on { color: var(--accent-text); }
 .usagebox {
   margin: 0 0 10px 34px; padding: 10px 13px; font-size: 12px;
   background: #14181c; border: 1px solid #26333c; border-radius: var(--radius); color: #b8cad6;
@@ -397,7 +454,7 @@ details.stategrp[open] > summary.gname { margin-bottom: 10px; }
 .char-item.offparty { opacity: .72; }
 .char-item.offparty.active { opacity: 1; }
 .badge.lead { background: var(--accent-2); color: #fff; }
-.panel h3 .side.lead { color: var(--accent-2); }
+.panel h3 .side.lead { color: var(--accent-text); }
 .panel h3 .side.off { color: var(--warn); }
 .banner.note.offwarn { background: #1b1512; border-color: #4a3a1c; color: #e8cfa6; }
 .banner.note.offwarn b { color: #fff2d8; }

@@ -274,7 +274,8 @@
         chips.appendChild(el('span', { class: 'chip' }, [
           ctx.data.skill(sid),
           el('span', { class: 'id' }, '#' + sid),
-          el('span', { class: 'x', title: 'Remove', onclick: function () {
+          // A real <button>: it gets the tab order, Enter/Space and the announced role for free.
+          el('button', { class: 'x', type: 'button', title: 'Remove', 'aria-label': 'Remove ' + ctx.data.skill(sid), onclick: function () {
             var m = jx.mutArr(a._skills); var i = m.indexOf(sid); if (i >= 0) m.splice(i, 1);
             ctx.markDirty(); redraw();
           } }, '✕')

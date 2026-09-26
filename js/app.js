@@ -29,7 +29,7 @@
       var badge = g.verified
         ? el('span', { class: 'tag ok', title: 'Round-tripped against a real save of this game' }, 'TESTED')
         : el('span', { class: 'tag warn', title: 'Not yet checked against a real save — names still come from the game’s own data files' }, 'SKELETON');
-      cards.appendChild(el('div', { class: 'card' + (g.generic ? ' generic' : ''), onclick: function () { startIntake(g); } }, [
+      cards.appendChild(el('div', { class: 'card' + (g.generic ? ' generic' : ''), onactivate: function () { startIntake(g); } }, [
         el('h3', {}, g.title),
         el('div', { class: 'blurb' }, g.blurb || ''),
         el('div', { class: 'tags' }, [el('span', { class: 'tag' }, (g.engine || '').toUpperCase()), badge])
@@ -122,7 +122,13 @@
     var input = el('input', { type: 'file', accept: accept });
     input.addEventListener('change', function () { if (input.files[0]) onFile(input.files[0]); });
     var status = el('span', { class: 'status' }, 'not loaded');
-    var row = el('div', { class: 'crow miss', onclick: function (e) { if (e.target.tagName !== 'INPUT') input.click(); } }, [
+    /* The real <input type=file> is display:none, which also takes it out of the tab order — so
+     * without this the whole checklist is unreachable by keyboard. */
+    var row = el('div', {
+      class: 'crow miss',
+      'aria-label': 'Choose a file for ' + label,
+      onactivate: function (e) { if (!e || e.target.tagName !== 'INPUT') input.click(); }
+    }, [
       el('span', { class: 'dot' }),
       el('div', { class: 'meta' }, [
         el('div', { class: 'name' }, [label, req ? el('span', { class: 'req' }, 'required') : null]),
@@ -404,7 +410,9 @@
     function add(r) {
       list.appendChild(el('div', {
         class: 'char-item' + (r.id === S.actorId ? ' active' : '') + (r.inParty ? '' : ' offparty'),
-        onclick: function () { selectActor(r.id); }
+        onactivate: function () { selectActor(r.id); },
+        // The list is a set of choices, so say which one is currently showing.
+        'aria-pressed': r.id === S.actorId ? 'true' : 'false'
       }, [
         el('span', { class: 'cn' }, r.name),
         r.isLeader ? el('span', { class: 'badge lead', title: 'Leads the party in the field' }, 'LEADER') : null,
@@ -579,7 +587,12 @@
   var toastT = null;
   function toast(msg, err) {
     var t = $('#toast');
-    if (!t) { t = el('div', { class: 'toast' }); t.id = 'toast'; document.body.appendChild(t); }
+    /* role=status makes a screen reader announce the text when it changes. Without it, every
+     * confirmation this app gives — "Copied", "Saved", and every error — is silent. */
+    if (!t) {
+      t = el('div', { class: 'toast', role: 'status', 'aria-live': 'polite' });
+      t.id = 'toast'; document.body.appendChild(t);
+    }
     t.className = 'toast' + (err ? ' err' : ''); t.textContent = msg; t.style.display = 'block';
     clearTimeout(toastT); toastT = setTimeout(function () { t.style.display = 'none'; }, 2800);
   }
