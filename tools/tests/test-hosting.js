@@ -86,6 +86,28 @@ for (const f of shipped) {
 }
 check('no external network requests (the privacy claim holds when hosted)', netUse.length === 0, netUse.join(', '));
 
+/* The tools and tests are not shipped to the browser, but a hard-coded absolute path in one is
+ * still a bug with two faces: it publishes the author's disk layout, and it means the suite only
+ * runs on that one machine. CI caught exactly this — two suites pinned to a D: project root that
+ * the Linux runner obviously did not have. _gamepaths.js is the one place allowed to build them. */
+console.log('\n=== the tools run on somebody else\'s machine too ===');
+const toolFiles = [];
+(function collectTools(dir, rel) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const r = (rel ? rel + '/' : '') + e.name;
+    if (e.isDirectory()) collectTools(path.join(dir, e.name), r);
+    else if (/\.js$/.test(e.name) && e.name !== '_gamepaths.js') toolFiles.push({ r: 'tools/' + r, full: path.join(dir, e.name) });
+  }
+})(path.join(ROOT, 'tools'), '');
+const pinned = [];
+for (const { r, full } of toolFiles) {
+  const t = fs.readFileSync(full, 'utf8');
+  // A drive letter followed by a slash or backslash, inside a quoted string.
+  if (/['"][A-Za-z]:[\\/]/.test(t)) pinned.push(r);
+}
+check(`no tool or test is pinned to one machine's drive (${toolFiles.length} files)`,
+  pinned.length === 0, pinned.join(', '));
+
 console.log('\n=== weight over the wire ===');
 let eager = 0, lazy = 0;
 for (const r of eagerRefs) { const p = realCase(r); if (p) eager += fs.statSync(p).size; }

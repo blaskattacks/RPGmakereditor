@@ -3,7 +3,7 @@
  * inventory, equipment — each verified to survive a full encode/decode round-trip. */
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const G = require('./_gamepaths.js');
-const ROOT = 'D:/Local AI/claude/fearandhunger';
+const ROOT = path.resolve(__dirname, '..', '..');
 const FH = G.game('fh1');
 if (!FH) G.bail('fh1');
 

@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const ROOT = 'D:/Local AI/claude/fearandhunger';
+const ROOT = path.resolve(__dirname, '..', '..');
 
 const sandbox = { window: {}, console, TextDecoder, TextEncoder, document: { addEventListener() {} } };
 sandbox.globalThis = sandbox;

@@ -9,7 +9,7 @@ const path = require('path');
 const G = require('./tests/_gamepaths.js');
 
 const FH = process.argv[2] || G.game('fh1');
-const OUT = process.argv[3] || 'D:/Local AI/Temp/claude/D--Local-AI-claude-fearandhunger/81cd7d1f-4582-4f58-aeeb-bde1669f008f/scratchpad/hexen';
+const OUT = process.argv[3] || path.join(require('os').tmpdir(), 'savedelver-hexen');
 const FILTER = process.argv[4] || '^the_hexen';
 
 const sys = JSON.parse(fs.readFileSync(path.join(FH, 'data/System.json'), 'utf8'));

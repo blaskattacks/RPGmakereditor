@@ -5,7 +5,7 @@ const path = require('path');
 const vm = require('vm');
 const G = require('./_gamepaths.js');
 
-const ROOT = 'D:/Local AI/claude/fearandhunger';
+const ROOT = path.resolve(__dirname, '..', '..');
 
 // Minimal browser shims the modules touch at load time.
 const sandbox = {
