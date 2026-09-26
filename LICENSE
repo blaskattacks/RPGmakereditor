@@ -19,25 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-This licence covers SaveDelver's own source only.
-
-SaveDelver ships NO game files: no art, no audio, no scripts, no data files from any game. It
-reads the copy of the game you already own, on your own machine, and nothing it reads is uploaded
-anywhere.
-
-`js/vendor/` contains two unmodified upstream libraries, under their own licences:
-  - lz-string   (c) 2013 pieroxy       — MIT
-  - pako        (c) 2014-2017 Vitaly Puzrin and Andrei Tuputcyn — MIT
-
-`js/games/usage-*.js` and `js/games/hexen-fh*.js` are indexes derived from the event data of games
-the author owns: switch and variable names, numeric ids, reference counts and node coordinates.
-They contain no game code, artwork or text. They exist so the editor can label things correctly,
-and are the same kind of reference material a community wiki publishes. If you are a rights holder
-and would like one removed, open an issue.
-
-The games themselves are the property of their respective developers — Fear & Hunger and
-Fear & Hunger 2: Termina by Miro Haverinen, Look Outside by Francis Coulombe. This project is
-unaffiliated with, and unendorsed by, any of them.

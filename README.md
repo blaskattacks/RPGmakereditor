@@ -234,7 +234,8 @@ editor reads the copy you already own. `.gitignore` is set up to keep saves and 
 if you run the tools in place.
 
 `js/games/usage-*.js` and `hexen-fh*.js` are *indexes* derived from game event data — names, ids,
-reference counts and node coordinates, the same reference material a wiki publishes. See `LICENSE`.
+reference counts and node coordinates, the same reference material a wiki publishes. See
+[NOTICE.md](NOTICE.md).
 
 ---
 
@@ -300,5 +301,6 @@ tools/                 offline extractors (decrypt .rpgmvp, rebuild the hexen tr
 
 ## Licence
 
-MIT — see [LICENSE](LICENSE). Unaffiliated with, and unendorsed by, the developers of any game
-listed here.
+MIT — see [LICENSE](LICENSE). Bundled libraries, derived reference data and game-name usage are
+covered in [NOTICE.md](NOTICE.md). Unaffiliated with, and unendorsed by, the developers of any
+game listed here.
